@@ -1,0 +1,35 @@
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { Star } from '../Styled';
+import { StyledShowCard } from './ShowCard.styled';
+
+const ShowCard = ({ id, image, name, summary, onStarClick, isStarred }) => {
+  const summaryAsText = summary
+    ? `${summary.split(' ').slice(0, 10).join(' ').replace(/<.+?>/g, '')}...`
+    : 'No description';
+  // to split summary into array of words
+  // first ten elements of thsi array. so we end up with first 10 elments of array.
+  // transform this array back to string by joing this elements using the empty space
+  // when we have our final result we simply replace all html tags with empty string
+  // and we use regular expression for this and regular is used to set the pattern
+
+  return (
+    <StyledShowCard>
+      <div className="img-wrapper">
+        <img src={image} alt="show" />
+      </div>
+
+      <h1>{name}</h1>
+
+      <p>{summaryAsText}</p>
+
+      <div className="btns">
+        <Link to={`/show/${id}`}>Read more</Link>
+        <button type="button" onClick={onStarClick}>
+          <Star active={isStarred} />
+        </button>
+      </div>
+    </StyledShowCard>
+  );
+};
+export default ShowCard;
